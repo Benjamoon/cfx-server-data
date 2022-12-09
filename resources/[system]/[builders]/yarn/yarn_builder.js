@@ -9,6 +9,11 @@ const initCwd = process.cwd();
 const yarnBuildTask = {
 	shouldBuild(resourceName) {
 		try {
+			
+			if (GetResourceMetadata(resourceName, 'yarn_ignore')) {
+				return false; //shouldn't build
+			}
+			
 			const resourcePath = GetResourcePath(resourceName);
 			
 			const packageJson = path.resolve(resourcePath, 'package.json');
